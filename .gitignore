@@ -1,0 +1,11 @@
+bin
+obj
+app2/.vs/config/applicationhost.config
+app1/.vs/config/applicationhost.config
+*.suo
+app1/.vs/Xena/v15/sqlite3/storage.ide
+app2/.vs/Xena/v15/sqlite3/storage.ide
+*.user
+app1/.vs/
+app2/.vs/
+_ReSharper.*
