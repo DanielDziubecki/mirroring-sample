@@ -1,20 +1,18 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
+WORKDIR /app2
 
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
-WORKDIR /src
-COPY ["app2/app2.csproj", "app2/"]
+WORKDIR /app2
+COPY ["app2.csproj", "app2/"]
 RUN dotnet restore "app2/app2.csproj"
 COPY . .
-WORKDIR "/src/app2"
-RUN dotnet build "app2.csproj" -c Release -o /app/build
+WORKDIR /app2
+RUN dotnet build "app2.csproj" -c Release -o /build
 
 FROM build AS publish
-RUN dotnet publish "app2.csproj" -c Release -o /app/publish
+RUN dotnet publish "app2.csproj" -c Release -o /publish
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=publish /publish .
 ENTRYPOINT ["dotnet", "app2.dll"]

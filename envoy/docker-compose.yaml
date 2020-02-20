@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  envoy:
+    build: ./
+    ports: 
+      - "2001:2001"
+    container_name: envoy
+    depends_on:
+      - app1
+      - app2
+  app1:
+    container_name: envoy-app1
+    environment: 
+      - "ASPNETCORE_URLS=http://+:5000"
+    build: ../app1
+  app2:
+    container_name: envoy-app2
+    environment: 
+      - "ASPNETCORE_URLS=http://+:5003"
+    build: ../app2
